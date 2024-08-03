@@ -4,16 +4,16 @@ import {useState, useEffect} from "react";
 import {firestore} from "@/firebase";
 import {Box, Button, TextField, Modal, Stack, Typography} from "@mui/material";
 import { query, collection, getDocs, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
-import axios from "axios";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 export default function Home() {
   const [inventory, setInventory] = useState([]);
   const [open, setOpen] = useState(false);
   const [itemName, setItemName] = useState("");
-  const [globalQuantity, setGlobalQuantity] = useState(1); // State for quantity in the modal
-  const [currentItem, setCurrentItem] = useState(""); // State for the item being modified
-  const [operationType, setOperationType] = useState(""); // "add" or "remove"
+  const [globalQuantity, setGlobalQuantity] = useState(1);
+  const [currentItem, setCurrentItem] = useState(""); 
+  const [operationType, setOperationType] = useState(""); 
 
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, "inventory"));
@@ -65,10 +65,10 @@ export default function Home() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setItemName(""); // Reset itemName
-    setGlobalQuantity(1);  // Reset quantity in the modal
-    setCurrentItem(""); // Reset current item
-    setOperationType(""); // Reset operation type
+    setItemName(""); 
+    setGlobalQuantity(1); 
+    setCurrentItem(""); 
+    setOperationType(""); 
   };
 
   const handleOperation = (item, operation) => {
@@ -110,7 +110,7 @@ export default function Home() {
           top="50%"
           left="50%"
           width={400}
-          bgcolor="rgba(255, 255, 255, 0.9)" // Slightly transparent white
+          bgcolor="rgba(255, 255, 255, 0.9)"
           border="2px solid #000"
           boxShadow={24}
           p={4}
@@ -119,7 +119,7 @@ export default function Home() {
           gap={3}
           sx={{
             transform: "translate(-50%, -50%)",
-            backdropFilter: 'blur(5px)', // Blurred effect behind the modal
+            backdropFilter: 'blur(5px)',
           }}
         >
           <Typography variant="h6" sx={{ fontFamily: 'Titillium Web, sans-serif', color: '#005f73' }}>
@@ -133,7 +133,7 @@ export default function Home() {
                 label="Item Name"
                 value={itemName}
                 onChange={(e) => setItemName(e.target.value)}
-                sx={{ backgroundColor: '#fff', borderRadius: '4px' }} // White background for better readability
+                sx={{ backgroundColor: '#fff', borderRadius: '4px' }} 
               />
             )}
             <TextField
@@ -142,7 +142,7 @@ export default function Home() {
               label="Quantity"
               value={globalQuantity}
               onChange={(e) => setGlobalQuantity(Number(e.target.value))}
-              sx={{ backgroundColor: '#fff', borderRadius: '4px' }} // White background for better readability
+              sx={{ backgroundColor: '#fff', borderRadius: '4px' }} 
             />
             <Button variant="contained" onClick={handleSubmit} sx={{ fontFamily: 'Titillium Web, sans-serif', backgroundColor: '#ff6f61', color: '#fff', '&:hover': { backgroundColor: '#ff3b2d' } }}>
               {operationType === "add" ? "Add" : "Remove"}
@@ -161,7 +161,7 @@ export default function Home() {
         <Box
           width="800px"
           height="100px"
-          bgcolor="#000" // Black background
+          bgcolor="#000"
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -181,7 +181,7 @@ export default function Home() {
               justifyContent="space-between"
               bgcolor="#e0f7fa"
               padding={5}
-              sx={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }} // Shadow effect for each item
+              sx={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}
             >
               <Typography variant="h3" sx={{ fontFamily: 'Roboto, sans-serif', color: '#004d40' }}>
                 {name.charAt(0).toUpperCase() + name.slice(1)}
